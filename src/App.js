@@ -8,10 +8,12 @@ import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "./App.css";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, NavLink ,Redirect, Switch } from "react-router-dom";
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
+axios.defaults.withCredentials = true;
 
 class App extends Component {
   render() {

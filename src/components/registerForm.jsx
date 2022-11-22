@@ -14,6 +14,7 @@ const options = {
        },
   data: {gcm_id: 1}
   };
+  //const history = useHistory();
 export default class RegisterForm extends Component {
 
   userData;
@@ -44,11 +45,14 @@ export default class RegisterForm extends Component {
   onSubmitHandler = (e) => {
     e.preventDefault();
     this.setState({ isLoading: true });
+    axios.get('/sanctum/csrf-cookie').then(response => {
     axios
       .post("http://127.0.0.1:8000/api/register", this.state.signupData,  options)
       .then((response) => {
         this.setState({ isLoading: false });
         if (response.data.status === 200) {
+          localStorage.setItem('auth_token', response.data.token);
+          localStorage.setItem('auth_name', response.data.customer);
           this.setState({
             msg: response.data.message,
             signupData: {
@@ -66,6 +70,8 @@ export default class RegisterForm extends Component {
           setTimeout(() => {
             this.setState({ msg: "" });
           }, 2000);
+
+          
         }
 
         if (response.data.status === "failed") {
@@ -75,6 +81,7 @@ export default class RegisterForm extends Component {
           }, 2000);
         }
       });
+    });
   };
 
   render() {
