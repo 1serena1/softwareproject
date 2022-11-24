@@ -14,6 +14,12 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, NavLink ,Redirect, Switch } from "react-router-dom";
 axios.defaults.baseURL = "http://127.0.0.1:8000/";
 axios.defaults.withCredentials = true;
+axios.interceptors.request.use(function (config){
+  const token =localStorage.getItem('auth_token');
+
+  config.headers.Authorization = token? `Bearer ${token}`: '';
+  return config;
+});
 
 class App extends Component {
   render() {
