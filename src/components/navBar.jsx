@@ -1,7 +1,49 @@
+import axios from "axios";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Redirect, withRouter} from "react-router-dom";
+//import axios from "axios";
+
 
 const NavBar = () => {
+
+  const logoutSubmit = (e) =>{
+    e.preventDefault();
+
+    axios.post("http://127.0.0.1:8000/api/logout").then(res =>{
+      if(res.data.status ===200)
+      {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_name');
+        <Redirect push to="/"/>
+      }
+      else{
+
+      }
+
+    })
+  }
+
+  var AuthButtons = '';
+  if(!localStorage.getItem('auth_token')){
+    AuthButtons=(
+      <ul className="navbar-nav">
+        <NavLink className="nav-item nav-link" to="/login">
+            Login
+          </NavLink>
+          <NavLink className="nav-item nav-link" to="/register">
+            Register
+          </NavLink>
+      </ul>
+    );
+  }
+  else{
+    AuthButtons=(<button type="button" onClick={logoutSubmit} className="nav-item btn btn-danger btn-sm text-white" >
+    Logout
+  </button>);
+  }
+
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
@@ -26,12 +68,8 @@ const NavBar = () => {
           <NavLink className="nav-item nav-link" to="/customers">
             Profile
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/login">
-            Login
-          </NavLink>
-          <NavLink className="nav-item nav-link" to="/register">
-            Register
-          </NavLink>
+          {AuthButtons}
+          
         </div>
       </div>
     </nav>
