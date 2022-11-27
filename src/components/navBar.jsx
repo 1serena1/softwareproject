@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { Link, NavLink, Redirect, withRouter} from "react-router-dom";
-//import axios from "axios";
 
 
 const NavBar = () => {
@@ -14,7 +13,8 @@ const NavBar = () => {
       {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_name');
-        <Redirect push to="/"/>
+        window.location.assign("/movies");
+        
       }
       else{
 

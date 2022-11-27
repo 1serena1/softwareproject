@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import { Redirect, Route } from "react-router";
 import Joi from "joi-browser";
 //import Form from "./common/form";
 import {Link, useHistory} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
+
+
+
+
 
 const options = {
   headers: {
@@ -15,6 +20,9 @@ const options = {
   data: {gcm_id: 1}
   };
   //const history = useHistory();
+
+
+
 export default class RegisterForm extends Component {
 
   userData;
@@ -40,9 +48,11 @@ export default class RegisterForm extends Component {
     const { signupData } = this.state;
     signupData[e.target.name] = e.target.value;
     this.setState({ signupData });
+    
   };
   
   onSubmitHandler = (e) => {
+    
     e.preventDefault();
     this.setState({ isLoading: true });
     axios.get('/sanctum/csrf-cookie').then(response => {
@@ -53,6 +63,7 @@ export default class RegisterForm extends Component {
         if (response.data.status === 200) {
           localStorage.setItem('auth_token', response.data.token);
           localStorage.setItem('auth_name', response.data.customer);
+          window.location.assign("/movies");
           this.setState({
             msg: response.data.message,
             signupData: {
@@ -64,14 +75,14 @@ export default class RegisterForm extends Component {
               city: "",
               address: "",
               password: "",
-              pass_conf: "",
+              //pass_conf: "",
             },
           });
           setTimeout(() => {
             this.setState({ msg: "" });
           }, 2000);
-
-          
+         
+          //<Redirect from="/" exact to="/movies" />
         }
 
         if (response.data.status === "failed") {
@@ -80,15 +91,19 @@ export default class RegisterForm extends Component {
             this.setState({ msg: "" });
           }, 2000);
         }
+        else{
+       
+        }
       });
     });
+  
   };
 
   render() {
     const isLoading = this.state.isLoading;
     return (
       <div>
-        <Form className="containers shadow">
+      <Form className="containers shadow" >
           <FormGroup>
             <Label for="name">Name</Label>
             <Input
