@@ -13,13 +13,13 @@ const options = {
  
   function onClick() {
     axios.get('/sanctum/csrf-cookie').then(response => {
-      axios.post("http://127.0.0.1:8000/api/",options)
+      axios.post("http://127.0.0.1:8000/api/add-to-cart",options)
         .then((response) => {
          console.log(response);
           if (response.status === 401) {
            console.log("ERRRORRR");
           }
-          if (response.status === 201) {
+          else if (response.status === 201) {
            console.log("SUCCESS")
             setTimeout(() => {
             }, 2000);

@@ -29,7 +29,7 @@ export default class RegisterForm extends Component {
         dateOfBirth: "",
         email: "",
         number: "",
-        county: "",
+        country: "",
         city: "",
         address: "",
         password: "",
@@ -66,7 +66,7 @@ export default class RegisterForm extends Component {
               dateOfBirth: "",
               email: "",
               number: "",
-              county: "",
+              country: "",
               city: "",
               address: "",
               password: "",
@@ -140,12 +140,12 @@ export default class RegisterForm extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="county">county</Label>
+            <Label for="country">country</Label>
             <Input
-              type="county"
-              name="county"
-              placeholder="Enter county"
-              value={this.state.signupData.county}
+              type="country"
+              name="country"
+              placeholder="Enter country"
+              value={this.state.signupData.country}
               onChange={this.onChangehandler}
             />
           </FormGroup>
