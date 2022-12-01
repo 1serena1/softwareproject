@@ -5,11 +5,6 @@ import Joi from "joi-browser";
 import {Link, useHistory} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
-
-
-
-
-
 const options = {
   headers: {
        //'Authorization': this.state.Authorization,
